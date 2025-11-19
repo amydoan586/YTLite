@@ -229,7 +229,7 @@ jobs:
           git clone --quiet --depth=1 --recurse-submodules https://github.com/therealFoxster/DontEatMyContent.git
 
       - name: Clone YouLoop
-        run: git clone --quiet https://github.com/bhackel/YouLoop.git
+        run: git clone --quiet https://github.com/Tonwalter888/YouLoop.git
         
       - name: Build YouPiP
         if: ${{ inputs.enable_youpip }}
