@@ -196,11 +196,7 @@ jobs:
 
       - name: Clone YTUHD
         if: ${{ inputs.enable_ytuhd }}
-        uses: actions/checkout@v4.1.7
-        with:
-          repository: PoomSmart/YTUHD
-          ref: 0f59b38817d554ab692a0053456319847a6ab1a1
-          path: ${{ github.workspace }}/YTUHD
+        run: git clone --quiet https://github.com/Tonwalter888/YTUHD.git
 
       - name: Clone Return-YouTube-Dislikes
         if: ${{ inputs.enable_ryd }}
@@ -232,6 +228,9 @@ jobs:
           cd ${{ github.workspace }}
           git clone --quiet --depth=1 --recurse-submodules https://github.com/therealFoxster/DontEatMyContent.git
 
+      - name: Clone YouLoop
+        run: git clone --quiet https://github.com/bhackel/YouLoop.git
+        
       - name: Build YouPiP
         if: ${{ inputs.enable_youpip }}
         run: |
@@ -294,7 +293,13 @@ jobs:
           mv packages/*.deb ${{ github.workspace }}/demc.deb
         env:
           THEOS: ${{ github.workspace }}/theos
-
+      - name: Build YouLoop
+        run: |
+          cd YouLoop
+          make clean package DEBUG=0 FINALPACKAGE=1
+          mv packages/*.deb ${{ github.workspace }}/youloop.deb
+        env:
+          THEOS: ${{ github.workspace }}/theos
       - name: Inject tweaks into IPA
         run: |
           tweaks="ytplus.deb OpenYoutubeSafariExtension.appex"
